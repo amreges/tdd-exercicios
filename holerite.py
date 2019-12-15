@@ -1,26 +1,34 @@
+def holerite(salario, taxa_inss=0.09, vale_transporte=0.03, plano_saude=347):
+    inss = salario * taxa_inss
+    taxa_vt = salario * vale_transporte
+    taxa_ps = plano_saude * 0.15
+    salario_liquido = salario - inss - taxa_ps - taxa_vt
+    print(f'''Salário integral: {salario}
+INSS: {inss}
+Vale transporte: {taxa_vt}
+Plano de Saúde: {taxa_ps}
+Salário Líquido: {salario_liquido}''')
 
-salario = float(input("Insira o valor do seu salário aqui: R$ "))
 
-def inss_calculo(salario, inss):
-    return salario * inss
+def inss(salario_bruto, porcentagem=9):
+    return salario_bruto * (porcentagem / 100)
 
-resultado = inss_calculo(salario, 0.09)
-print("O desconto do seu INSS é de: ", resultado)
 
-def vt_calculo(salario, vt):
-    return salario * vt
+def vale_transporte(salario_bruto, porcentagem=3):
+    return salario_bruto * (porcentagem / 100)
 
-resultado_2 = vt_calculo(salario, 0.03)
-print("O desconto do seu vale transporte é de: ", resultado_2)
 
-def convenio_calculo(salario, convenio):
-    return salario * convenio
+def plano_saude(valor=347, porcentagem=15):
+    return valor * (porcentagem/100)
 
-resultado_3 = convenio_calculo(salario, 0.15)
-print("O desconto do seu convênio é de: ", resultado_3)
 
-def salarioliquido(salario, salarioliquido):
-    return salario - salarioliquido
+def salario_liquido(salario_bruto):
+    return salario_bruto - plano_saude(salario_bruto) - vale_transporte(salario_bruto) - plano_saude()
 
-resultado_4 = salarioliquido(salario, (0.03 + 0.09 + 0.15))
-print("O valor do seu salário líquido é: ", resultado_4)
+
+salario = float(input('Digá-me seu salário: R$'))
+desconto_inss = inss(salario)
+desconto_vt = vale_transporte(salario)
+desconto_ps = plano_saude()
+print(desconto_inss, desconto_vt, desconto_ps)
+print("O seu salario liquido é:", salario_liquido(salario))
